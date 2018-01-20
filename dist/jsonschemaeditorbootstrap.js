@@ -102,7 +102,7 @@ JSONSchemaEditor.prototype = {
 		};
 	},
 	getForm: function getForm() {
-		return ["*"];
+		return this.react.exportForm();
 	},
 	getSchema: function getSchema() {
 		return this.react.export();
@@ -135,6 +135,12 @@ var SchemaString = React.createClass({
 			format: this.state.format,
 			pattern: !!this.state.pattern ? this.state.pattern : undefined,
 			enum: this.state.enum
+		};
+	},
+	exportForm: function exportForm(title) {
+		return {
+			key: title,
+			type: this.state.format
 		};
 	},
 	change: function change(event) {
@@ -270,6 +276,11 @@ var SchemaBoolean = React.createClass({
 			format: 'checkbox'
 		};
 	},
+	exportForm: function exportForm(title) {
+		return {
+			key: title
+		};
+	},
 	render: function render() {
 		return React.createElement('div', null);
 	}
@@ -294,6 +305,11 @@ var SchemaNumber = React.createClass({
 		o.title = title;
 		delete o.name;
 		return o;
+	},
+	exportForm: function exportForm(title) {
+		return {
+			key: title
+		};
 	},
 	render: function render() {
 		return React.createElement(
@@ -344,6 +360,11 @@ var SchemaArray = React.createClass({
 			format: this.state.format,
 			title: title,
 			type: 'array'
+		};
+	},
+	exportForm: function exportForm(title) {
+		return {
+			key: title
 		};
 	},
 	componentDidUpdate: function componentDidUpdate() {
@@ -516,6 +537,15 @@ var SchemaObject = React.createClass({
 			properties: properties,
 			required: this.state.required.length ? this.state.required : undefined
 		};
+	},
+	exportForm: function exportForm() {
+		var self = this;
+		var schemaForm = [];
+		Object.keys(self.state.properties).forEach(function (index) {
+			var name = self.state.propertyNames[index];
+			if (typeof self.refs['item' + index] != 'undefined' && name.length > 0) schemaForm.push(self.refs['item' + index].exportForm(name));
+		});
+		return schemaForm;
 	},
 	on: function on(event, callback) {
 		this.callbacks = this.callbacks || {};

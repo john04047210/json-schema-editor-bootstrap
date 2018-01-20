@@ -27,15 +27,15 @@ JSONSchemaEditor.prototype = {
 	},
 	onChange: function() {
 	},
-    getValue: function() {
-	    return {
-	        schema: this.getSchema(),
-            form: this.getForm()
-        }
-    },
-    getForm: function() {
-	    return ["*"];
-    },
+  getValue: function() {
+    return {
+      schema: this.getSchema(),
+      form: this.getForm()
+    }
+  },
+  getForm: function() {
+    return this.react.exportForm();
+  },
 	getSchema: function() {
 		return this.react.export();
 	},
@@ -70,6 +70,12 @@ var SchemaString = React.createClass({
 			enum: this.state.enum
 		};
 	},
+  exportForm: function(title) {
+    return {
+      key: title,
+      type: this.state.format
+    };
+  },
 	change: function(event) {
 		this.state[event.target.name] = event.target.value;
 		this.setState(this.state);
@@ -133,6 +139,11 @@ var SchemaBoolean = React.createClass({
 			format: 'checkbox'
 		}
 	},
+  exportForm: function(title) {
+    return {
+      key: title
+    };
+  },
 	render() {
 		return (
 			<div></div>
@@ -158,6 +169,11 @@ var SchemaNumber = React.createClass({
 		delete o.name;
 		return o;
 	},
+  exportForm: function(title) {
+    return {
+      key: title
+    };
+  },
 	render: function() {
 		return (
 			<div>
@@ -208,6 +224,11 @@ var SchemaArray = React.createClass({
 			type: 'array'
 		};
 	},
+  exportForm: function(title) {
+    return {
+      key: title
+    };
+  },
 	componentDidUpdate: function() {
 		this.onChange();
 	},
@@ -335,6 +356,16 @@ var SchemaObject = React.createClass({
 			required: this.state.required.length ? this.state.required : undefined
 		};
 	},
+  exportForm: function() {
+    var self = this;
+    var schemaForm = [];
+    Object.keys(self.state.properties).forEach(function(index) {
+      var name = self.state.propertyNames[index];
+      if (typeof self.refs['item'+index] != 'undefined' && name.length > 0)
+        schemaForm.push(self.refs['item'+index].exportForm(name));
+    });
+    return schemaForm;
+  },
 	on: function(event, callback) {
 		this.callbacks = this.callbacks || {};
 		this.callbacks[event] = this.callbacks[event] || [];
