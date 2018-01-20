@@ -1,73 +1,107 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>JsonSchemaEditor</title>
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="https://fb.me/react-15.0.1.js"></script>
-    <script src="https://fb.me/react-dom-15.0.1.js"></script>
-    <script src="../dist/jsonschemaeditorbootstrap.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
   </head>
   <body>
     <h1>JSON Schema Editor Example</h1>
-    <div id="example"></div>
+    <div class="container">
+      <div class="row" id="example"></div>
+      <div class="row">
+        <div class="col-xs-12,col-sm-12,col-md-6,col-lg-5,col-lg-offset-1">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Schema Json</h3>
+            </div>
+            <div class="panel-body">
+              <pre class="pre-scrollable" id="schema_json"></pre>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12,col-sm-12,col-md-6,col-lg-5">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Form Json</h3>
+            </div>
+            <div class="panel-body">
+              <pre class="pre-scrollable" id="form_json"></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <br>
     <button onclick="print()">Print Schema</button>
-
+    <script src="//cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://fb.me/react-15.0.1.js"></script>
+    <script src="https://fb.me/react-dom-15.0.1.js"></script>
+    <script src="../dist/jsonschemaeditorbootstrap.js"></script>
     <script>
+      $(document).ready(function(){
         var product = {
-            "title": "Product",
-            "type": "object",
-            "properties": {
-                "id": {
-                    "description": "The unique identifier for a product",
-                    "type": "number"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "price": {
-                    "type": "number",
-                    "minimum": 0,
-                    "exclusiveMinimum": true
-                },
-                "tags": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "minItems": 1,
-                    "uniqueItems": true
-                },
-                "dimensions": {
-                    "type": "object",
-                    "properties": {
-                        "length": {"type": "number"},
-                        "width": {"type": "number"},
-                        "height": {"type": "number"}
-                    },
-                    "required": ["length", "width", "height"]
-                },
-                "warehouseLocation": {
-                    "description": "Coordinates of the warehouse with the product",
-                    "$ref": "http://json-schema.org/geo"
-                }
+          "title": "Product",
+          "type": "object",
+          "properties": {
+            "id": {
+              "description": "The unique identifier for a product",
+              "type": "number"
             },
-            "required": ["id", "name", "price"]
+            "name": {
+              "type": "string"
+            },
+            "price": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMinimum": true
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "dimensions": {
+              "type": "object",
+              "properties": {
+                "length": {"type": "number"},
+                "width": {"type": "number"},
+                "height": {"type": "number"}
+              },
+              "required": ["length", "width", "height"]
+            },
+            "warehouseLocation": {
+              "description": "Coordinates of the warehouse with the product",
+              "$ref": "http://json-schema.org/geo"
+            }
+          },
+          "required": ["id", "name", "price"]
         }
 
         var element = document.getElementById('example');
 
         var editor = new JSONSchemaEditor(element, {
-            startval: product
+          startval: product
         });
 
         //expose the editor so we can access it later
         window.schemaeditor = editor;
 
         function print() {
-            console.log(window.schemaeditor.getValue());
+          console.log(window.schemaeditor.getValue());
+          $('#schema_json').html(window.schemaeditor.getValue());
         }
+      });
     </script>
   </body>
 </html>
