@@ -383,7 +383,7 @@ var SchemaObject = React.createClass({
         var copiedState = JSON.parse(JSON.stringify(self.state.properties[index]));
         var optionForm = mapping('item' + index, copiedState, self.onChange);
         return <div className="form-inline" data-index={index} key={index}>
-          <div className="form-group">
+          <div className="form-group" data-index={index} key={index}>
             <label className="sr-only" htmlFor={"input-"+index}>input</label>
             <input name="field" id={"input-"+index} type="string" onChange={self.changeItem} value={name} />
           </div>
@@ -403,7 +403,7 @@ var SchemaObject = React.createClass({
           <button type="button" className="btn btn-default" onClick={self.deleteItem}>
             <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
           </button>
-          <div style={optionFormStyle}>
+          <div className="media-right">
             {optionForm}
           </div>
         </div>

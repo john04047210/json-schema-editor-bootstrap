@@ -570,7 +570,7 @@ var SchemaObject = React.createClass({
 					{ className: 'form-inline', 'data-index': index, key: index },
 					React.createElement(
 						'div',
-						{ className: 'form-group' },
+						{ className: 'form-group', 'data-index': index, key: index },
 						React.createElement(
 							'label',
 							{ className: 'sr-only', htmlFor: "input-" + index },
@@ -633,7 +633,7 @@ var SchemaObject = React.createClass({
 					),
 					React.createElement(
 						'div',
-						{ style: optionFormStyle },
+						{ className: 'media-right' },
 						optionForm
 					)
 				);
