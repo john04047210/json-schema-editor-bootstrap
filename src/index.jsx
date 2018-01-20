@@ -382,12 +382,12 @@ var SchemaObject = React.createClass({
         var name = self.state.propertyNames[index]
         var copiedState = JSON.parse(JSON.stringify(self.state.properties[index]));
         var optionForm = mapping('item' + index, copiedState, self.onChange);
-        return <div className="form-inline" data-index={index} key={index}>
-          <div className="form-group" data-index={index} key={index}>
+        return <div className="form-inline" key={index}>
+          <div className="form-group" data-index={index}>
             <label className="sr-only" htmlFor={"input-"+index}>input</label>
             <input name="field" id={"input-"+index} type="string" onChange={self.changeItem} value={name} />
           </div>
-          <div className="form-group" data-index={index} key={index}>
+          <div className="form-group" data-index={index}>
             <label className="sr-only" htmlFor={"select-"+index}>input</label>
             <select name="type" id={"select-"+index} onChange={self.changeItem} value={value.type}>
               <option value="string">string</option>

@@ -567,10 +567,10 @@ var SchemaObject = React.createClass({
 				var optionForm = mapping('item' + index, copiedState, self.onChange);
 				return React.createElement(
 					'div',
-					{ className: 'form-inline', 'data-index': index, key: index },
+					{ className: 'form-inline', key: index },
 					React.createElement(
 						'div',
-						{ className: 'form-group', 'data-index': index, key: index },
+						{ className: 'form-group', 'data-index': index },
 						React.createElement(
 							'label',
 							{ className: 'sr-only', htmlFor: "input-" + index },
@@ -580,7 +580,7 @@ var SchemaObject = React.createClass({
 					),
 					React.createElement(
 						'div',
-						{ className: 'form-group', 'data-index': index, key: index },
+						{ className: 'form-group', 'data-index': index },
 						React.createElement(
 							'label',
 							{ className: 'sr-only', htmlFor: "select-" + index },
