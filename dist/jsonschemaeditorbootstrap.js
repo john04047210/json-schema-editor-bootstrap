@@ -580,7 +580,7 @@ var SchemaObject = React.createClass({
 					),
 					React.createElement(
 						'div',
-						{ className: 'form-group' },
+						{ className: 'form-group', 'data-index': index, key: index },
 						React.createElement(
 							'label',
 							{ className: 'sr-only', htmlFor: "select-" + index },

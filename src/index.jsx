@@ -387,7 +387,7 @@ var SchemaObject = React.createClass({
             <label className="sr-only" htmlFor={"input-"+index}>input</label>
             <input name="field" id={"input-"+index} type="string" onChange={self.changeItem} value={name} />
           </div>
-          <div className="form-group">
+          <div className="form-group" data-index={index} key={index}>
             <label className="sr-only" htmlFor={"select-"+index}>input</label>
             <select name="type" id={"select-"+index} onChange={self.changeItem} value={value.type}>
               <option value="string">string</option>
