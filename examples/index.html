@@ -14,8 +14,17 @@
   <body>
     <div class="container">
       <h1>JSON Schema Editor Example</h1>
-      <div id="example"></div>
-      <button onclick="showSchemaJson()">Print Schema</button>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">JSON Schema Editor Example</h3>
+        </div>
+        <div class="panel-body">
+          <div id="example"></div>
+        </div>
+        <div class="panel-footer">
+          <button id="showSchemaJson">Print Schema</button>
+        </div>
+      </div>
       <div class="row">
         <div class="col-xs-12,col-sm-12,col-md-6,col-lg-5,col-lg-offset-1">
           <div class="panel panel-default">
@@ -97,10 +106,10 @@
         //expose the editor so we can access it later
         window.schemaeditor = editor;
 
-        function showSchemaJson() {
+        $('#showSchemaJson').on('click',function(){
           //console.log(window.schemaeditor.getValue());
           $('#schema_json').html(window.schemaeditor.getValue());
-        }
+        });
       });
     </script>
   </body>
