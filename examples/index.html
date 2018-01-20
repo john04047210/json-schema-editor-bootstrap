@@ -108,7 +108,7 @@
 
         $('#showSchemaJson').on('click',function(){
           //console.log(window.schemaeditor.getValue());
-          $('#schema_json').html(window.schemaeditor.getValue());
+          $('#schema_json').html(JSON.stringify(window.schemaeditor.getValue(),null,4));
         });
       });
     </script>
