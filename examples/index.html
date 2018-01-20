@@ -107,6 +107,8 @@
 
         //expose the editor so we can access it later
         window.schemaeditor = editor;
+        $('#schema_json').html(JSON.stringify(window.schemaeditor.getSchema(),null,4));
+        $('#form_json').html(JSON.stringify(window.schemaeditor.getForm(),null,4));
 
         $('#showSchemaJson').on('click',function(){
           //console.log(window.schemaeditor.getValue());
