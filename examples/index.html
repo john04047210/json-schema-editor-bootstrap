@@ -12,9 +12,10 @@
     <![endif]-->
   </head>
   <body>
-    <h1>JSON Schema Editor Example</h1>
     <div class="container">
-      <div class="row" id="example"></div>
+      <h1>JSON Schema Editor Example</h1>
+      <div id="example"></div>
+      <button onclick="showSchemaJson()">Print Schema</button>
       <div class="row">
         <div class="col-xs-12,col-sm-12,col-md-6,col-lg-5,col-lg-offset-1">
           <div class="panel panel-default">
@@ -39,7 +40,6 @@
       </div>
     </div>
     <br>
-    <button onclick="print()">Print Schema</button>
     <script src="//cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://fb.me/react-15.0.1.js"></script>
@@ -97,8 +97,8 @@
         //expose the editor so we can access it later
         window.schemaeditor = editor;
 
-        function print() {
-          console.log(window.schemaeditor.getValue());
+        function showSchemaJson() {
+          //console.log(window.schemaeditor.getValue());
           $('#schema_json').html(window.schemaeditor.getValue());
         }
       });
