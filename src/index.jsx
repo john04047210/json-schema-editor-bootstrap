@@ -27,10 +27,13 @@ JSONSchemaEditor.prototype = {
 	},
 	onChange: function() {
 	},
-	getValue: function() {
+    getForm: function() {
+	    return ["*"];
+    },
+	getSchema: function() {
 		return this.react.export();
 	},
-	setValue: function(data) {
+	setSchema: function(data) {
 		var self = this;
 		this.react = ReactDOM.render(
 			<SchemaObject onChange={this.onChange} data={data}/>,
