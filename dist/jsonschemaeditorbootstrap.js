@@ -128,9 +128,10 @@ var SchemaString = React.createClass({
 	componentDidUpdate: function componentDidUpdate() {
 		this.props.onChange();
 	},
-	export: function _export() {
+	export: function _export(title) {
 		return {
 			type: 'string',
+			title: title,
 			format: this.state.format,
 			pattern: !!this.state.pattern ? this.state.pattern : undefined,
 			enum: this.state.enum
@@ -262,9 +263,10 @@ var SchemaString = React.createClass({
 var SchemaBoolean = React.createClass({
 	displayName: 'SchemaBoolean',
 
-	export: function _export() {
+	export: function _export(title) {
 		return {
 			type: 'boolean',
+			title: title,
 			format: 'checkbox'
 		};
 	},
@@ -286,9 +288,10 @@ var SchemaNumber = React.createClass({
 		this.state[event.target.name] = event.target.value;
 		this.setState(this.state);
 	},
-	export: function _export() {
+	export: function _export(title) {
 		var o = JSON.parse(JSON.stringify(this.state));
 		o.type = 'number';
+		o.title = title;
 		delete o.name;
 		return o;
 	},
@@ -331,7 +334,7 @@ var SchemaArray = React.createClass({
 		}
 		this.setState(this.state);
 	},
-	export: function _export() {
+	export: function _export(title) {
 		//console.log(this.refs.items.state)
 		return {
 			items: this.refs['items'].export(),
@@ -339,6 +342,7 @@ var SchemaArray = React.createClass({
 			maxItems: this.state.maxItems,
 			uniqueItems: this.state.uniqueItems ? true : undefined,
 			format: this.state.format,
+			title: title,
 			type: 'array'
 		};
 	},
@@ -503,7 +507,7 @@ var SchemaObject = React.createClass({
 		Object.keys(self.state.properties).forEach(function (index) {
 			//var name = self.state.properties[index].name;
 			var name = self.state.propertyNames[index];
-			if (typeof self.refs['item' + index] != 'undefined' && name.length > 0) properties[name] = self.refs['item' + index].export();
+			if (typeof self.refs['item' + index] != 'undefined' && name.length > 0) properties[name] = self.refs['item' + index].export(name);
 		});
 		return {
 			type: 'object',
