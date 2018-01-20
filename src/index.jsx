@@ -27,6 +27,12 @@ JSONSchemaEditor.prototype = {
 	},
 	onChange: function() {
 	},
+    getValue: function() {
+	    return {
+	        schema: this.getSchema(),
+            form: this.getForm()
+        }
+    },
     getForm: function() {
 	    return ["*"];
     },
