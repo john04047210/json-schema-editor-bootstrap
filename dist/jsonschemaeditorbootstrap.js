@@ -95,6 +95,12 @@ JSONSchemaEditor.prototype = {
 		this.react.on(event, callback);
 	},
 	onChange: function onChange() {},
+	getValue: function getValue() {
+		return {
+			schema: this.getSchema(),
+			form: this.getForm()
+		};
+	},
 	getForm: function getForm() {
 		return ["*"];
 	},
@@ -634,7 +640,7 @@ var SchemaObject = React.createClass({
 			),
 			React.createElement(
 				'button',
-				{ onClick: self.add },
+				{ 'class': 'btn btn-info', onClick: self.add },
 				'Add another field'
 			)
 		);
