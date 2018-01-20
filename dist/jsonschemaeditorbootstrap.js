@@ -560,7 +560,7 @@ var SchemaObject = React.createClass({
 		};
 		return React.createElement(
 			'div',
-			{ style: objectStyle },
+			{ className: 'row media-right' },
 			this.state.properties.map(function (value, index) {
 				var name = self.state.propertyNames[index];
 				var copiedState = JSON.parse(JSON.stringify(self.state.properties[index]));
@@ -640,7 +640,7 @@ var SchemaObject = React.createClass({
 			}),
 			React.createElement(
 				'div',
-				{ 'class': 'hide' },
+				{ className: 'hide' },
 				'Allow additional properties: ',
 				React.createElement('input', { name: 'additionalProperties', type: 'checkbox', onChange: self.change, checked: self.state.additionalProperties }),
 				'Format:',
@@ -662,7 +662,7 @@ var SchemaObject = React.createClass({
 			),
 			React.createElement(
 				'button',
-				{ className: 'btn btn-info', onClick: self.add },
+				{ className: 'btn btn-info navbar-text', onClick: self.add },
 				'Add another field'
 			)
 		);

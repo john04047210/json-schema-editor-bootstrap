@@ -377,7 +377,7 @@ var SchemaObject = React.createClass({
 			pointer: 'cursor',
 		}
 		return (
-		<div style={objectStyle}>
+		<div className="row media-right">
 			{this.state.properties.map(function(value, index) {
         var name = self.state.propertyNames[index]
         var copiedState = JSON.parse(JSON.stringify(self.state.properties[index]));
@@ -408,7 +408,7 @@ var SchemaObject = React.createClass({
           </div>
         </div>
 			})}
-			<div class="hide">
+			<div className="hide">
 			Allow additional properties: <input name="additionalProperties" type="checkbox" onChange={self.change} checked={self.state.additionalProperties} />
 			Format: 
 				<select name="format" onChange={this.changeText} value={this.state.format}>
@@ -418,7 +418,7 @@ var SchemaObject = React.createClass({
 				</select>
 			</div>
 
-			<button className="btn btn-info" onClick={self.add}>Add another field</button>
+			<button className="btn btn-info navbar-text" onClick={self.add}>Add another field</button>
 		</div>
 	);
   }
