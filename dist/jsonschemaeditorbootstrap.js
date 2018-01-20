@@ -640,7 +640,7 @@ var SchemaObject = React.createClass({
 			),
 			React.createElement(
 				'button',
-				{ 'class': 'btn btn-info', onClick: self.add },
+				{ className: 'btn btn-info', onClick: self.add },
 				'Add another field'
 			)
 		);
