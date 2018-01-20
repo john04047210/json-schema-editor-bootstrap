@@ -567,47 +567,69 @@ var SchemaObject = React.createClass({
 				var optionForm = mapping('item' + index, copiedState, self.onChange);
 				return React.createElement(
 					'div',
-					{ 'data-index': index, style: fieldStyle, key: index },
-					React.createElement('input', { name: 'field', type: 'string', onChange: self.changeItem, value: name }),
+					{ className: 'form-inline', 'data-index': index, key: index },
 					React.createElement(
-						'select',
-						{ style: typeSelectStyle, name: 'type', onChange: self.changeItem, value: value.type },
+						'div',
+						{ className: 'form-group' },
 						React.createElement(
-							'option',
-							{ value: 'string' },
-							'string'
+							'label',
+							{ className: 'sr-only', htmlFor: "input-" + index },
+							'input'
+						),
+						React.createElement('input', { name: 'field', id: "input-" + index, type: 'string', onChange: self.changeItem, value: name })
+					),
+					React.createElement(
+						'div',
+						{ className: 'form-group' },
+						React.createElement(
+							'label',
+							{ className: 'sr-only', htmlFor: "select-" + index },
+							'input'
 						),
 						React.createElement(
-							'option',
-							{ value: 'number' },
-							'number'
-						),
-						React.createElement(
-							'option',
-							{ value: 'array' },
-							'array'
-						),
-						React.createElement(
-							'option',
-							{ value: 'object' },
-							'object'
-						),
-						React.createElement(
-							'option',
-							{ value: 'boolean' },
-							'boolean'
+							'select',
+							{ name: 'type', id: "select-" + index, onChange: self.changeItem, value: value.type },
+							React.createElement(
+								'option',
+								{ value: 'string' },
+								'string'
+							),
+							React.createElement(
+								'option',
+								{ value: 'number' },
+								'number'
+							),
+							React.createElement(
+								'option',
+								{ value: 'array' },
+								'array'
+							),
+							React.createElement(
+								'option',
+								{ value: 'object' },
+								'object'
+							),
+							React.createElement(
+								'option',
+								{ value: 'boolean' },
+								'boolean'
+							)
 						)
 					),
 					React.createElement(
-						'span',
-						{ style: requiredIcon },
-						'*'
+						'div',
+						{ className: 'checkbox' },
+						React.createElement(
+							'label',
+							null,
+							React.createElement('input', { name: name, type: 'checkbox', onChange: self.changeRequired, checked: self.state.required.indexOf(name) != -1 }),
+							' Required'
+						)
 					),
-					React.createElement('input', { name: name, type: 'checkbox', onChange: self.changeRequired, checked: self.state.required.indexOf(name) != -1 }),
 					React.createElement(
-						'span',
-						{ onClick: self.deleteItem, style: deletePropStyle },
-						'x'
+						'button',
+						{ type: 'button', className: 'btn btn-default', onClick: self.deleteItem },
+						React.createElement('span', { className: 'glyphicon glyphicon-remove', 'aria-hidden': 'true' })
 					),
 					React.createElement(
 						'div',
@@ -618,7 +640,7 @@ var SchemaObject = React.createClass({
 			}),
 			React.createElement(
 				'div',
-				null,
+				{ 'class': 'hide' },
 				'Allow additional properties: ',
 				React.createElement('input', { name: 'additionalProperties', type: 'checkbox', onChange: self.change, checked: self.state.additionalProperties }),
 				'Format:',

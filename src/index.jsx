@@ -378,28 +378,37 @@ var SchemaObject = React.createClass({
 		}
 		return (
 		<div style={objectStyle}>
-
 			{this.state.properties.map(function(value, index) {
-			var name = self.state.propertyNames[index]
-			var copiedState = JSON.parse(JSON.stringify(self.state.properties[index]));
- 			var optionForm = mapping('item' + index, copiedState, self.onChange);
-			return <div data-index={index} style={fieldStyle} key={index}>
-				<input name="field" type="string" onChange={self.changeItem} value={name} />
-				<select style={typeSelectStyle} name="type" onChange={self.changeItem} value={value.type}>
-					<option value="string">string</option>
-					<option value="number">number</option>
-					<option value="array">array</option>
-					<option value="object">object</option>
-					<option value="boolean">boolean</option>
-				</select>
-				<span style={requiredIcon}>*</span><input name={name} type="checkbox" onChange={self.changeRequired} checked={self.state.required.indexOf(name) != -1} />
-				<span onClick={self.deleteItem} style={deletePropStyle}>x</span>
-				<div style={optionFormStyle}>
-					{optionForm}
-				</div>
-			</div>
+        var name = self.state.propertyNames[index]
+        var copiedState = JSON.parse(JSON.stringify(self.state.properties[index]));
+        var optionForm = mapping('item' + index, copiedState, self.onChange);
+        return <div className="form-inline" data-index={index} key={index}>
+          <div className="form-group">
+            <label className="sr-only" htmlFor={"input-"+index}>input</label>
+            <input name="field" id={"input-"+index} type="string" onChange={self.changeItem} value={name} />
+          </div>
+          <div className="form-group">
+            <label className="sr-only" htmlFor={"select-"+index}>input</label>
+            <select name="type" id={"select-"+index} onChange={self.changeItem} value={value.type}>
+              <option value="string">string</option>
+              <option value="number">number</option>
+              <option value="array">array</option>
+              <option value="object">object</option>
+              <option value="boolean">boolean</option>
+            </select>
+          </div>
+          <div className="checkbox"><label>
+            <input name={name} type="checkbox" onChange={self.changeRequired} checked={self.state.required.indexOf(name) != -1} /> Required
+          </label></div>
+          <button type="button" className="btn btn-default" onClick={self.deleteItem}>
+            <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
+          </button>
+          <div style={optionFormStyle}>
+            {optionForm}
+          </div>
+        </div>
 			})}
-			<div>
+			<div class="hide">
 			Allow additional properties: <input name="additionalProperties" type="checkbox" onChange={self.change} checked={self.state.additionalProperties} />
 			Format: 
 				<select name="format" onChange={this.changeText} value={this.state.format}>
