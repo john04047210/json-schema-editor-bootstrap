@@ -420,11 +420,11 @@ var SchemaObject = React.createClass({
         return <div className="form-inline" key={index}>
           <div className="form-group" data-index={index}>
             <label className="sr-only" htmlFor={"input-"+index}>input</label>
-            <input name="field" id={"input-"+index} type="string" onChange={self.changeItem} value={name} />
+            <input name="field" className="form-control" id={"input-"+index} type="string" onChange={self.changeItem} value={name} />
           </div>
           <div className="form-group" data-index={index}>
             <label className="sr-only" htmlFor={"select-"+index}>input</label>
-            <select name="type" id={"select-"+index} onChange={self.changeItem} value={value.type}>
+            <select name="type" className="form-control" id={"select-"+index} onChange={self.changeItem} value={value.type}>
               <option value="string">string</option>
               <option value="number">number</option>
               <option value="array">array</option>

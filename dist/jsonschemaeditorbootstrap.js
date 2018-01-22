@@ -610,7 +610,7 @@ var SchemaObject = React.createClass({
 							{ className: 'sr-only', htmlFor: "input-" + index },
 							'input'
 						),
-						React.createElement('input', { name: 'field', id: "input-" + index, type: 'string', onChange: self.changeItem, value: name })
+						React.createElement('input', { name: 'field', className: 'form-control', id: "input-" + index, type: 'string', onChange: self.changeItem, value: name })
 					),
 					React.createElement(
 						'div',
@@ -622,7 +622,7 @@ var SchemaObject = React.createClass({
 						),
 						React.createElement(
 							'select',
-							{ name: 'type', id: "select-" + index, onChange: self.changeItem, value: value.type },
+							{ name: 'type', className: 'form-control', id: "select-" + index, onChange: self.changeItem, value: value.type },
 							React.createElement(
 								'option',
 								{ value: 'string' },
