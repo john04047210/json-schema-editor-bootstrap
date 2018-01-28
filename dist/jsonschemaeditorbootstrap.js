@@ -566,138 +566,137 @@ var SchemaObject = React.createClass({
 	render: function render() {
 		var self = this;
 
-		var optionFormStyle = {
-			paddingLeft: '25px',
-			paddingTop: '4px'
-		};
-		var requiredIcon = {
-			fontSize: '1em',
-			color: 'red',
-			fontWeight: 'bold',
-			paddingLeft: '5px'
-		};
-		var fieldStyle = {
-			paddingBottom: '10px'
-		};
-		var objectStyle = {
-			borderLeft: '2px dotted gray',
-			paddingLeft: '8px',
-			paddingTop: '10px'
-		};
-		var typeSelectStyle = {
-			marginLeft: '5px'
-		};
-		var deletePropStyle = {
-			border: '1px solid black',
-			padding: '0px 4px 0px 4px',
-			pointer: 'cursor'
-		};
 		return React.createElement(
 			'div',
-			{ className: 'row media-right' },
-			this.state.properties.map(function (value, index) {
-				var name = self.state.propertyNames[index];
-				var copiedState = JSON.parse(JSON.stringify(self.state.properties[index]));
-				var optionForm = mapping('item' + index, copiedState, self.onChange);
-				return React.createElement(
-					'div',
-					{ className: 'form-inline', key: index },
-					React.createElement(
-						'div',
-						{ className: 'form-group', 'data-index': index },
-						React.createElement(
-							'label',
-							{ className: 'sr-only', htmlFor: "input-" + index },
-							'input'
-						),
-						React.createElement('input', { name: 'field', className: 'form-control', id: "input-" + index, type: 'string', onChange: self.changeItem, value: name })
-					),
-					React.createElement(
-						'div',
-						{ className: 'form-group', 'data-index': index },
-						React.createElement(
-							'label',
-							{ className: 'sr-only', htmlFor: "select-" + index },
-							'input'
-						),
-						React.createElement(
-							'select',
-							{ name: 'type', className: 'form-control', id: "select-" + index, onChange: self.changeItem, value: value.type },
-							React.createElement(
-								'option',
-								{ value: 'string' },
-								'string'
-							),
-							React.createElement(
-								'option',
-								{ value: 'number' },
-								'number'
-							),
-							React.createElement(
-								'option',
-								{ value: 'array' },
-								'array'
-							),
-							React.createElement(
-								'option',
-								{ value: 'object' },
-								'object'
-							),
-							React.createElement(
-								'option',
-								{ value: 'boolean' },
-								'boolean'
-							)
-						)
-					),
-					React.createElement(
-						'div',
-						{ className: 'checkbox' },
-						React.createElement(
-							'label',
-							null,
-							React.createElement('input', { name: name, type: 'checkbox', onChange: self.changeRequired, checked: self.state.required.indexOf(name) != -1 }),
-							' Required'
-						)
-					),
-					React.createElement(
-						'button',
-						{ type: 'button', className: 'btn btn-default', onClick: self.deleteItem },
-						React.createElement('span', { className: 'glyphicon glyphicon-remove', 'aria-hidden': 'true' })
-					),
-					React.createElement(
-						'div',
-						{ className: 'media-right' },
-						optionForm
-					)
-				);
-			}),
+			{ className: 'panel panel-default' },
 			React.createElement(
 				'div',
-				{ className: 'hide' },
-				'Allow additional properties: ',
-				React.createElement('input', { name: 'additionalProperties', type: 'checkbox', onChange: self.change, checked: self.state.additionalProperties }),
-				'Format:',
+				{ className: 'panel-body' },
+				this.state.properties.map(function (value, index) {
+					var name = self.state.propertyNames[index];
+					var copiedState = JSON.parse(JSON.stringify(self.state.properties[index]));
+					var optionForm = mapping('item' + index, copiedState, self.onChange);
+					return React.createElement(
+						'div',
+						{ key: index },
+						React.createElement(
+							'div',
+							{ className: 'row' },
+							React.createElement(
+								'div',
+								{ className: 'col-sm-12 col-md-12 col-lg-12' },
+								React.createElement(
+									'div',
+									{ className: 'form-inline' },
+									React.createElement(
+										'div',
+										{ className: 'form-group', 'data-index': index },
+										React.createElement(
+											'label',
+											{ className: 'sr-only', htmlFor: "input_" + index },
+											'input'
+										),
+										React.createElement('input', { name: 'field', className: 'form-control', id: "input_" + index, type: 'string', onChange: self.changeItem, value: name })
+									),
+									React.createElement(
+										'div',
+										{ className: 'form-group media-right', 'data-index': index },
+										React.createElement(
+											'label',
+											{ className: 'sr-only', htmlFor: "select_" + index },
+											'input'
+										),
+										React.createElement(
+											'select',
+											{ name: 'type', className: 'form-control', id: "select_" + index, onChange: self.changeItem, value: value.type },
+											React.createElement(
+												'option',
+												{ value: 'string' },
+												'string'
+											),
+											React.createElement(
+												'option',
+												{ value: 'number' },
+												'number'
+											),
+											React.createElement(
+												'option',
+												{ value: 'array' },
+												'array'
+											),
+											React.createElement(
+												'option',
+												{ value: 'object' },
+												'object'
+											),
+											React.createElement(
+												'option',
+												{ value: 'boolean' },
+												'boolean'
+											)
+										)
+									),
+									React.createElement(
+										'div',
+										{ className: 'checkbox media-right' },
+										React.createElement(
+											'label',
+											null,
+											React.createElement('input', { name: name, type: 'checkbox', onChange: self.changeRequired, checked: self.state.required.indexOf(name) != -1 }),
+											' Required'
+										)
+									),
+									React.createElement(
+										'div',
+										{ className: 'form-group media-right', 'data-index': index },
+										React.createElement(
+											'button',
+											{ type: 'button', id: 'btn_' + index, className: 'btn btn-default', onClick: self.deleteItem },
+											React.createElement('span', { className: 'glyphicon glyphicon-remove' })
+										)
+									)
+								)
+							)
+						),
+						React.createElement(
+							'div',
+							{ className: 'row' },
+							React.createElement(
+								'div',
+								{ className: 'col-sm-12 col-md-12 col-lg-12' },
+								optionForm
+							)
+						),
+						React.createElement('hr', { className: 'col-md-10 col-lg-10 h6' })
+					);
+				}),
 				React.createElement(
-					'select',
-					{ name: 'format', onChange: this.changeText, value: this.state.format },
-					React.createElement('option', { value: '' }),
+					'div',
+					{ className: 'hide' },
+					'Allow additional properties: ',
+					React.createElement('input', { name: 'additionalProperties', type: 'checkbox', onChange: self.change, checked: self.state.additionalProperties }),
+					'Format:',
 					React.createElement(
-						'option',
-						{ value: 'grid' },
-						'grid'
-					),
-					React.createElement(
-						'option',
-						{ value: 'schema' },
-						'schema'
+						'select',
+						{ name: 'format', onChange: this.changeText, value: this.state.format },
+						React.createElement('option', { value: '' }),
+						React.createElement(
+							'option',
+							{ value: 'grid' },
+							'grid'
+						),
+						React.createElement(
+							'option',
+							{ value: 'schema' },
+							'schema'
+						)
 					)
+				),
+				React.createElement(
+					'button',
+					{ className: 'btn btn-info navbar-text', onClick: self.add },
+					'Add another field'
 				)
-			),
-			React.createElement(
-				'button',
-				{ className: 'btn btn-info navbar-text', onClick: self.add },
-				'Add another field'
 			)
 		);
 	}
