@@ -552,9 +552,11 @@ var SchemaObject = React.createClass({
 		data.properties = data.properties || {};
 		data.required = data.required || [];
 		data.propertyNames = [];
+		data.propertyDels = []; // 记录被删除的信息，页面不显示，不导出schema
 		// convert from object to array
 		data.properties = Object.keys(data.properties).map(function (name) {
 			data.propertyNames.push(name);
+			data.propertyDels.push[false]; // 初始化，默认都没有被删除
 			var item = data.properties[name];
 			return item;
 		});
@@ -569,8 +571,9 @@ var SchemaObject = React.createClass({
 		if (requiredIndex !== -1) {
 			this.state.required.splice(requiredIndex, 1);
 		}
-		this.state.properties.splice(i, 1);
-		this.state.propertyNames.splice(i, 1);
+		this.state.propertyDels[i] = true; // 标记被删除元素
+		//this.state.properties.splice(i, 1);
+		//this.state.propertyNames.splice(i, 1);
 		this.state = this.propsToState(this.export());
 		this.setState(this.state);
 	},
@@ -611,9 +614,12 @@ var SchemaObject = React.createClass({
 		this.setState(this.state);
 	},
 	export: function _export() {
+		var _this = this;
+
 		var self = this;
 		var properties = {};
 		Object.keys(self.state.properties).forEach(function (index) {
+			if (_this.state.propertyDels[index]) return;
 			var name = self.state.propertyNames[index];
 			if (typeof self.refs['item' + index] != 'undefined' && name.length > 0) {
 				properties[name] = self.refs['item' + index].export(name);
@@ -654,6 +660,8 @@ var SchemaObject = React.createClass({
 		return this;
 	},
 	render: function render() {
+		var _this2 = this;
+
 		var self = this;
 
 		return React.createElement(
@@ -663,6 +671,7 @@ var SchemaObject = React.createClass({
 				'div',
 				{ className: 'panel-body' },
 				this.state.properties.map(function (value, index) {
+					if (_this2.state.propertyDels[index]) return;
 					var name = self.state.propertyNames[index];
 					var copiedState = JSON.parse(JSON.stringify(self.state.properties[index]));
 					var optionForm = mapping('item' + index, copiedState, self.onChange);
