@@ -93,38 +93,48 @@ var SchemaString = React.createClass({
 		this.setState(this.state);
 	},
 	render: function() {
-		var settings;
+	  let inputId = Date.now();
+		let settings;
 		if (this.state.hasEnum) {
-			settings = <div>
-						<label style={{display: 'block'}} htmlFor="enum">Enum (one value per line):</label>
-						<textarea onChange={this.changeEnum} name="enum" value={(this.state.enum||[]).join('\n')} />
-					  </div>
+			settings =
+        <div className="from-group media-right">
+						<label htmlFor={"enum-"+inputId}>Enum (one value per line):</label>
+						<textarea rows="3" className="form-control" id={"enum-"+inputId} onChange={this.changeEnum} name="enum" value={(this.state.enum||[]).join('\n')} />
+        </div>
 		} else {
-			settings = <span>
-				Pattern: <input name="pattern" type="text" value={this.state.pattern} onChange={this.change} />
-				</span>
+			settings =
+        <div className="form-group media-right">
+          <label htmlFor={"pattern-"+inputId}>Pattern:</label>
+				  <input name="pattern" type="text" className="form-control" id={"pattern-"+inputId} value={this.state.pattern} onChange={this.change} />
+				</div>
 		}
 		return (
-			<div>
-				Format: 
-				<select name="format" onChange={this.change} value={this.state.format}>
-					<option value=""></option>
-					<option value="color">color</option>
-					<option value="date">date</option>
-					<option value="datetime">datetime</option>
-					<option value="datetime-local">datetime-local</option>
-					<option value="email">email</option>
-					<option value="month">month</option>
-					<option value="number">number</option>
-					<option value="range">range</option>
-					<option value="tel">tel</option>
-					<option value="text">text</option>
-					<option value="textarea">textarea</option>
-					<option value="time">time</option>
-					<option value="url">url</option>
-					<option value="week">week</option>
-				</select>
-				Enum: <input name="hasEnum" type="checkbox" checked={this.state.hasEnum} onChange={this.changeBool}  />
+			<div className="form-inline">
+        <div className="form-group">
+          <label htmlFor={"format-"+inputId}>Format:</label>
+          <select name="format" className="form-control" id={"format-"+inputId} onChange={this.change} value={this.state.format}>
+            <option value=""></option>
+            <option value="color">color</option>
+            <option value="date">date</option>
+            <option value="datetime">datetime</option>
+            <option value="datetime-local">datetime-local</option>
+            <option value="email">email</option>
+            <option value="month">month</option>
+            <option value="number">number</option>
+            <option value="range">range</option>
+            <option value="tel">tel</option>
+            <option value="text">text</option>
+            <option value="textarea">textarea</option>
+            <option value="time">time</option>
+            <option value="url">url</option>
+            <option value="week">week</option>
+          </select>
+        </div>
+        <div className="checkbox media-right">
+          <label>
+            <input name="hasEnum" type="checkbox" checked={this.state.hasEnum} onChange={this.changeBool} /> Enum
+          </label>
+        </div>
 				{settings}
 			</div>
 		);
@@ -175,10 +185,17 @@ var SchemaNumber = React.createClass({
     };
   },
 	render: function() {
+	  let inputId = Date.now();
 		return (
-			<div>
-				Min: <input name="minimum" style={shortNumberStyle} type="number" value={this.state.minimum} onChange={this.change} />
-				Max: <input name="maximum" style={shortNumberStyle} type="number" value={this.state.maximum} onChange={this.change} />
+			<div className="form-inline">
+        <div className="form-group">
+          <label htmlFor={"minimum-"+inputId}>Min:</label>
+				  <input name="minimum" id={"minimum-"+inputId} className="form-control" type="number" value={this.state.minimum} onChange={this.change} />
+        </div>
+        <div className="form-group media-right">
+          <label htmlFor={"maximum-"+inputId}>Max:</label>
+				  <input name="maximum" id={"maximum-"+inputId} className="form-control" type="number" value={this.state.maximum} onChange={this.change} />
+        </div>
 			</div>
 		);
 	}
@@ -236,35 +253,50 @@ var SchemaArray = React.createClass({
 		this.props.onChange();
 	},
  	render: function() {
-		var self = this;
-		var optionFormStyle = {
-			paddingLeft: '25px',
-			paddingTop: '4px',
-		};
+		let self = this;
+		let inputId = Date.now();
 		this.state.items = this.state.items || {type: 'string'};
-		var optionForm = mapping('items', this.state.items, this.onChange);
+		let optionForm = mapping('items', this.state.items, this.onChange);
 		return (
-			<div>
-				Items Type:
-				<select name="itemtype" onChange={this.change} value={this.state.items.type}>
-						<option value="string">string</option>
-						<option value="number">number</option>
-						<option value="array">array</option>
-						<option value="object">object</option>
-						<option value="boolean">boolean</option>
-					</select>
-				minItems:  <input name="minItems" style={shortNumberStyle} type="number" onChange={self.change} value={self.state.minItems}  />
-				maxItems:  <input name="maxItems" style={shortNumberStyle} type="number" onChange={self.change} value={self.state.maxItems}  />
-				uniqueItems:  <input name="uniqueItems" type="checkbox" onChange={self.change} checked={self.state.uniqueItems}  />
-				Format: 
-				<select name="format" onChange={this.change} value={this.state.format}>
-					<option value=""></option>
-					<option value="table">table</option>
-					<option value="checkbox">checkbox</option>
-					<option value="select">select</option>
-					<option value="tabs">tabs</option>
-				</select>
-				<div style={optionFormStyle}>
+			<div className="row">
+        <div className="col-sm-12 col-md-12 col-lg-12">
+          <div className="form-inline">
+            <div className="form-group">
+              <label htmlFor={"itemtype-"+inputId}>Items Type:</label>
+              <select name="itemtype" className="form-control" id={"itemtype-"+inputId} onChange={this.change} value={this.state.items.type}>
+                <option value="string">string</option>
+                <option value="number">number</option>
+                <option value="array">array</option>
+                <option value="object">object</option>
+                <option value="boolean">boolean</option>
+              </select>
+            </div>
+            <div className="form-group media-right">
+              <label htmlFor={"minItems-"+inputId}>minItems:</label>
+              <input name="minItems" className="form-control" id={"minItems-"+inputId} type="number" onChange={self.change} value={self.state.minItems}  />
+            </div>
+            <div className="form-group media-right">
+              <label htmlFor={"maxItems-"+inputId}>maxItems:</label>
+              <input name="maxItems" className="form-control" id={"maxItems-"+inputId} type="number" onChange={self.change} value={self.state.maxItems}  />
+            </div>
+            <div className="checkbox media-right">
+              <label>
+                <input name="uniqueItems" type="checkbox" onChange={self.change} checked={self.state.uniqueItems} /> uniqueItems
+              </label>
+            </div>
+            <div className="form-group media-right">
+              <label htmlFor={"format-"+inputId}>Format:</label>
+              <select name="format" className="form-control" id={"format-"+inputId} onChange={this.change} value={this.state.format}>
+                <option value=""></option>
+                <option value="table">table</option>
+                <option value="checkbox">checkbox</option>
+                <option value="select">select</option>
+                <option value="tabs">tabs</option>
+              </select>
+            </div>
+          </div>
+        </div>
+				<div className="col-sm-12 col-md-12 col-lg-12 h6">
 					{optionForm}
 				</div>
 			</div>
@@ -422,7 +454,7 @@ var SchemaObject = React.createClass({
                   </div>
                 </div>
               </div>
-              <div className="row">
+              <div className="row h6">
                 <div className="col-sm-12 col-md-12 col-lg-12">
                   {optionForm}
                 </div>

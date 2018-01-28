@@ -160,107 +160,128 @@ var SchemaString = React.createClass({
 		this.setState(this.state);
 	},
 	render: function render() {
-		var settings;
+		var inputId = Date.now();
+		var settings = void 0;
 		if (this.state.hasEnum) {
 			settings = React.createElement(
 				'div',
-				null,
+				{ className: 'from-group media-right' },
 				React.createElement(
 					'label',
-					{ style: { display: 'block' }, htmlFor: 'enum' },
+					{ htmlFor: "enum-" + inputId },
 					'Enum (one value per line):'
 				),
-				React.createElement('textarea', { onChange: this.changeEnum, name: 'enum', value: (this.state.enum || []).join('\n') })
+				React.createElement('textarea', { rows: '3', className: 'form-control', id: "enum-" + inputId, onChange: this.changeEnum, name: 'enum', value: (this.state.enum || []).join('\n') })
 			);
 		} else {
 			settings = React.createElement(
-				'span',
-				null,
-				'Pattern: ',
-				React.createElement('input', { name: 'pattern', type: 'text', value: this.state.pattern, onChange: this.change })
+				'div',
+				{ className: 'form-group media-right' },
+				React.createElement(
+					'label',
+					{ htmlFor: "pattern-" + inputId },
+					'Pattern:'
+				),
+				React.createElement('input', { name: 'pattern', type: 'text', className: 'form-control', id: "pattern-" + inputId, value: this.state.pattern, onChange: this.change })
 			);
 		}
 		return React.createElement(
 			'div',
-			null,
-			'Format:',
+			{ className: 'form-inline' },
 			React.createElement(
-				'select',
-				{ name: 'format', onChange: this.change, value: this.state.format },
-				React.createElement('option', { value: '' }),
+				'div',
+				{ className: 'form-group' },
 				React.createElement(
-					'option',
-					{ value: 'color' },
-					'color'
+					'label',
+					{ htmlFor: "format-" + inputId },
+					'Format:'
 				),
 				React.createElement(
-					'option',
-					{ value: 'date' },
-					'date'
-				),
-				React.createElement(
-					'option',
-					{ value: 'datetime' },
-					'datetime'
-				),
-				React.createElement(
-					'option',
-					{ value: 'datetime-local' },
-					'datetime-local'
-				),
-				React.createElement(
-					'option',
-					{ value: 'email' },
-					'email'
-				),
-				React.createElement(
-					'option',
-					{ value: 'month' },
-					'month'
-				),
-				React.createElement(
-					'option',
-					{ value: 'number' },
-					'number'
-				),
-				React.createElement(
-					'option',
-					{ value: 'range' },
-					'range'
-				),
-				React.createElement(
-					'option',
-					{ value: 'tel' },
-					'tel'
-				),
-				React.createElement(
-					'option',
-					{ value: 'text' },
-					'text'
-				),
-				React.createElement(
-					'option',
-					{ value: 'textarea' },
-					'textarea'
-				),
-				React.createElement(
-					'option',
-					{ value: 'time' },
-					'time'
-				),
-				React.createElement(
-					'option',
-					{ value: 'url' },
-					'url'
-				),
-				React.createElement(
-					'option',
-					{ value: 'week' },
-					'week'
+					'select',
+					{ name: 'format', className: 'form-control', id: "format-" + inputId, onChange: this.change, value: this.state.format },
+					React.createElement('option', { value: '' }),
+					React.createElement(
+						'option',
+						{ value: 'color' },
+						'color'
+					),
+					React.createElement(
+						'option',
+						{ value: 'date' },
+						'date'
+					),
+					React.createElement(
+						'option',
+						{ value: 'datetime' },
+						'datetime'
+					),
+					React.createElement(
+						'option',
+						{ value: 'datetime-local' },
+						'datetime-local'
+					),
+					React.createElement(
+						'option',
+						{ value: 'email' },
+						'email'
+					),
+					React.createElement(
+						'option',
+						{ value: 'month' },
+						'month'
+					),
+					React.createElement(
+						'option',
+						{ value: 'number' },
+						'number'
+					),
+					React.createElement(
+						'option',
+						{ value: 'range' },
+						'range'
+					),
+					React.createElement(
+						'option',
+						{ value: 'tel' },
+						'tel'
+					),
+					React.createElement(
+						'option',
+						{ value: 'text' },
+						'text'
+					),
+					React.createElement(
+						'option',
+						{ value: 'textarea' },
+						'textarea'
+					),
+					React.createElement(
+						'option',
+						{ value: 'time' },
+						'time'
+					),
+					React.createElement(
+						'option',
+						{ value: 'url' },
+						'url'
+					),
+					React.createElement(
+						'option',
+						{ value: 'week' },
+						'week'
+					)
 				)
 			),
-			'Enum: ',
-			React.createElement('input', { name: 'hasEnum', type: 'checkbox', checked: this.state.hasEnum, onChange: this.changeBool }),
+			React.createElement(
+				'div',
+				{ className: 'checkbox media-right' },
+				React.createElement(
+					'label',
+					null,
+					React.createElement('input', { name: 'hasEnum', type: 'checkbox', checked: this.state.hasEnum, onChange: this.changeBool }),
+					' Enum'
+				)
+			),
 			settings
 		);
 	}
@@ -312,13 +333,30 @@ var SchemaNumber = React.createClass({
 		};
 	},
 	render: function render() {
+		var inputId = Date.now();
 		return React.createElement(
 			'div',
-			null,
-			'Min: ',
-			React.createElement('input', { name: 'minimum', style: shortNumberStyle, type: 'number', value: this.state.minimum, onChange: this.change }),
-			'Max: ',
-			React.createElement('input', { name: 'maximum', style: shortNumberStyle, type: 'number', value: this.state.maximum, onChange: this.change })
+			{ className: 'form-inline' },
+			React.createElement(
+				'div',
+				{ className: 'form-group' },
+				React.createElement(
+					'label',
+					{ htmlFor: "minimum-" + inputId },
+					'Min:'
+				),
+				React.createElement('input', { name: 'minimum', id: "minimum-" + inputId, className: 'form-control', type: 'number', value: this.state.minimum, onChange: this.change })
+			),
+			React.createElement(
+				'div',
+				{ className: 'form-group media-right' },
+				React.createElement(
+					'label',
+					{ htmlFor: "maximum-" + inputId },
+					'Max:'
+				),
+				React.createElement('input', { name: 'maximum', id: "maximum-" + inputId, className: 'form-control', type: 'number', value: this.state.maximum, onChange: this.change })
+			)
 		);
 	}
 });
@@ -375,80 +413,125 @@ var SchemaArray = React.createClass({
 	},
 	render: function render() {
 		var self = this;
-		var optionFormStyle = {
-			paddingLeft: '25px',
-			paddingTop: '4px'
-		};
+		var inputId = Date.now();
 		this.state.items = this.state.items || { type: 'string' };
 		var optionForm = mapping('items', this.state.items, this.onChange);
 		return React.createElement(
 			'div',
-			null,
-			'Items Type:',
+			{ className: 'row' },
 			React.createElement(
-				'select',
-				{ name: 'itemtype', onChange: this.change, value: this.state.items.type },
+				'div',
+				{ className: 'col-sm-12 col-md-12 col-lg-12' },
 				React.createElement(
-					'option',
-					{ value: 'string' },
-					'string'
-				),
-				React.createElement(
-					'option',
-					{ value: 'number' },
-					'number'
-				),
-				React.createElement(
-					'option',
-					{ value: 'array' },
-					'array'
-				),
-				React.createElement(
-					'option',
-					{ value: 'object' },
-					'object'
-				),
-				React.createElement(
-					'option',
-					{ value: 'boolean' },
-					'boolean'
-				)
-			),
-			'minItems:  ',
-			React.createElement('input', { name: 'minItems', style: shortNumberStyle, type: 'number', onChange: self.change, value: self.state.minItems }),
-			'maxItems:  ',
-			React.createElement('input', { name: 'maxItems', style: shortNumberStyle, type: 'number', onChange: self.change, value: self.state.maxItems }),
-			'uniqueItems:  ',
-			React.createElement('input', { name: 'uniqueItems', type: 'checkbox', onChange: self.change, checked: self.state.uniqueItems }),
-			'Format:',
-			React.createElement(
-				'select',
-				{ name: 'format', onChange: this.change, value: this.state.format },
-				React.createElement('option', { value: '' }),
-				React.createElement(
-					'option',
-					{ value: 'table' },
-					'table'
-				),
-				React.createElement(
-					'option',
-					{ value: 'checkbox' },
-					'checkbox'
-				),
-				React.createElement(
-					'option',
-					{ value: 'select' },
-					'select'
-				),
-				React.createElement(
-					'option',
-					{ value: 'tabs' },
-					'tabs'
+					'div',
+					{ className: 'form-inline' },
+					React.createElement(
+						'div',
+						{ className: 'form-group' },
+						React.createElement(
+							'label',
+							{ htmlFor: "itemtype-" + inputId },
+							'Items Type:'
+						),
+						React.createElement(
+							'select',
+							{ name: 'itemtype', className: 'form-control', id: "itemtype-" + inputId, onChange: this.change, value: this.state.items.type },
+							React.createElement(
+								'option',
+								{ value: 'string' },
+								'string'
+							),
+							React.createElement(
+								'option',
+								{ value: 'number' },
+								'number'
+							),
+							React.createElement(
+								'option',
+								{ value: 'array' },
+								'array'
+							),
+							React.createElement(
+								'option',
+								{ value: 'object' },
+								'object'
+							),
+							React.createElement(
+								'option',
+								{ value: 'boolean' },
+								'boolean'
+							)
+						)
+					),
+					React.createElement(
+						'div',
+						{ className: 'form-group media-right' },
+						React.createElement(
+							'label',
+							{ htmlFor: "minItems-" + inputId },
+							'minItems:'
+						),
+						React.createElement('input', { name: 'minItems', className: 'form-control', id: "minItems-" + inputId, type: 'number', onChange: self.change, value: self.state.minItems })
+					),
+					React.createElement(
+						'div',
+						{ className: 'form-group media-right' },
+						React.createElement(
+							'label',
+							{ htmlFor: "maxItems-" + inputId },
+							'maxItems:'
+						),
+						React.createElement('input', { name: 'maxItems', className: 'form-control', id: "maxItems-" + inputId, type: 'number', onChange: self.change, value: self.state.maxItems })
+					),
+					React.createElement(
+						'div',
+						{ className: 'checkbox media-right' },
+						React.createElement(
+							'label',
+							null,
+							React.createElement('input', { name: 'uniqueItems', type: 'checkbox', onChange: self.change, checked: self.state.uniqueItems }),
+							' uniqueItems'
+						)
+					),
+					React.createElement(
+						'div',
+						{ className: 'form-group media-right' },
+						React.createElement(
+							'label',
+							{ htmlFor: "format-" + inputId },
+							'Format:'
+						),
+						React.createElement(
+							'select',
+							{ name: 'format', className: 'form-control', id: "format-" + inputId, onChange: this.change, value: this.state.format },
+							React.createElement('option', { value: '' }),
+							React.createElement(
+								'option',
+								{ value: 'table' },
+								'table'
+							),
+							React.createElement(
+								'option',
+								{ value: 'checkbox' },
+								'checkbox'
+							),
+							React.createElement(
+								'option',
+								{ value: 'select' },
+								'select'
+							),
+							React.createElement(
+								'option',
+								{ value: 'tabs' },
+								'tabs'
+							)
+						)
+					)
 				)
 			),
 			React.createElement(
 				'div',
-				{ style: optionFormStyle },
+				{ className: 'col-sm-12 col-md-12 col-lg-12 h6' },
 				optionForm
 			)
 		);
@@ -660,7 +743,7 @@ var SchemaObject = React.createClass({
 						),
 						React.createElement(
 							'div',
-							{ className: 'row' },
+							{ className: 'row h6' },
 							React.createElement(
 								'div',
 								{ className: 'col-sm-12 col-md-12 col-lg-12' },
