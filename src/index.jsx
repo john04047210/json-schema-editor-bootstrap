@@ -384,76 +384,65 @@ var SchemaObject = React.createClass({
 	},
 	render: function() {
 		var self = this;
-		
-		var optionFormStyle = {
-			paddingLeft: '25px',
-			paddingTop: '4px',
-		};
-		var requiredIcon = {
-			fontSize: '1em',
-			color: 'red',
-			fontWeight: 'bold',
-			paddingLeft: '5px'
-		};
-		var fieldStyle = {
-			paddingBottom: '10px',
-		}
-		var objectStyle = {
-			borderLeft: '2px dotted gray',
-			paddingLeft: '8px',
-			paddingTop: '10px',
-		}
-		var typeSelectStyle = {
-			marginLeft: '5px'
-		}
-		var deletePropStyle = {
-			border: '1px solid black',
-			padding: '0px 4px 0px 4px',
-			pointer: 'cursor',
-		}
-		return (
-		<div className="row media-right">
-			{this.state.properties.map(function(value, index) {
-        var name = self.state.propertyNames[index]
-        var copiedState = JSON.parse(JSON.stringify(self.state.properties[index]));
-        var optionForm = mapping('item' + index, copiedState, self.onChange);
-        return <div className="form-inline" key={index}>
-          <div className="form-group" data-index={index}>
-            <label className="sr-only" htmlFor={"input-"+index}>input</label>
-            <input name="field" className="form-control" id={"input-"+index} type="string" onChange={self.changeItem} value={name} />
-          </div>
-          <div className="form-group" data-index={index}>
-            <label className="sr-only" htmlFor={"select-"+index}>input</label>
-            <select name="type" className="form-control" id={"select-"+index} onChange={self.changeItem} value={value.type}>
-              <option value="string">string</option>
-              <option value="number">number</option>
-              <option value="array">array</option>
-              <option value="object">object</option>
-              <option value="boolean">boolean</option>
-            </select>
-          </div>
-          <div className="checkbox"><label>
-            <input name={name} type="checkbox" onChange={self.changeRequired} checked={self.state.required.indexOf(name) != -1} /> Required
-          </label></div>
-          <button type="button" className="btn btn-default" onClick={self.deleteItem}>
-            <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
-          </button>
-          <div className="media-right">
-            {optionForm}
-          </div>
-        </div>
-			})}
-			<div className="hide">
-			Allow additional properties: <input name="additionalProperties" type="checkbox" onChange={self.change} checked={self.state.additionalProperties} />
-			Format: 
-				<select name="format" onChange={this.changeText} value={this.state.format}>
-					<option value=""></option>
-					<option value="grid">grid</option>
-					<option value="schema">schema</option>
-				</select>
-			</div>
 
-			<button className="btn btn-info navbar-text" onClick={self.add}>Add another field</button>
+		return (
+		<div className="panel panel-default">
+      <div className="panel-body">
+        {this.state.properties.map((value, index) => {
+          var name = self.state.propertyNames[index]
+          var copiedState = JSON.parse(JSON.stringify(self.state.properties[index]));
+          var optionForm = mapping('item' + index, copiedState, self.onChange);
+          return (
+            <div key={index}>
+              <div className="row">
+                <div className="col-sm-12 col-md-12 col-lg-12">
+                  <div className="form-inline">
+                    <div className="form-group" data-index={index}>
+                      <label className="sr-only" htmlFor={"input_"+index}>input</label>
+                      <input name="field" className="form-control" id={"input_"+index} type="string" onChange={self.changeItem} value={name} />
+                    </div>
+                    <div className="form-group media-right" data-index={index}>
+                      <label className="sr-only" htmlFor={"select_"+index}>input</label>
+                      <select name="type" className="form-control" id={"select_"+index} onChange={self.changeItem} value={value.type}>
+                        <option value="string">string</option>
+                        <option value="number">number</option>
+                        <option value="array">array</option>
+                        <option value="object">object</option>
+                        <option value="boolean">boolean</option>
+                      </select>
+                    </div>
+                    <div className="checkbox media-right"><label>
+                      <input name={name} type="checkbox" onChange={self.changeRequired} checked={self.state.required.indexOf(name) != -1} /> Required
+                    </label></div>
+                    <div className="form-group media-right" data-index={index}>
+                      <button type="button" id={'btn_'+index} className="btn btn-default" onClick={self.deleteItem}>
+                        <span className="glyphicon glyphicon-remove"></span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-sm-12 col-md-12 col-lg-12">
+                  {optionForm}
+                </div>
+              </div>
+              <hr className="col-md-10 col-lg-10 h6" />
+            </div>
+          );
+        })}
+        <div className="hide">
+        Allow additional properties: <input name="additionalProperties" type="checkbox" onChange={self.change} checked={self.state.additionalProperties} />
+        Format:
+          <select name="format" onChange={this.changeText} value={this.state.format}>
+            <option value=""></option>
+            <option value="grid">grid</option>
+            <option value="schema">schema</option>
+          </select>
+        </div>
+
+        <button className="btn btn-info navbar-text" onClick={self.add}>Add another field</button>
+      </div>
 		</div>
 	);
   }

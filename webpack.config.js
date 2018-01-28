@@ -14,5 +14,11 @@ module.exports = {
         loader: "babel-loader"
       }
     ]
+  },
+  devServer: {
+    contentBase: './',
+    port: 801,
+    inline: true,
+    historyApiFallback: true
   }
 };

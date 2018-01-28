@@ -20,10 +20,26 @@
             <h3 class="panel-title">JSON Schema Editor GUI</h3>
           </div>
           <div class="panel-body">
-            <div id="example"></div>
+            <div class="panel panel-default" id="section-1">
+              <div class="panel-heading">
+                <form class="form-inline">
+                  <div class="form-group">
+                    <label for="section-1-title">Title</label>
+                    <input type="text" class="form-control" id="section-1-title" placeholder="Jane Doe">
+                  </div>
+                </form>
+              </div>
+              <div class="panel-body">
+                <div id="example"></div>
+              </div>
+              <div class="panel-footer">
+                <button class="btn btn-default" id="addItems">Add More</button>
+              </div>
+            </div>
           </div>
           <div class="panel-footer">
-            <button id="showSchemaJson">Print Schema</button>
+            <button class="btn btn-default" id="addSection">Add More</button>
+            <button class="btn btn-default" id="showSchemaJson">Print Schema</button>
           </div>
         </div>
       </div>
