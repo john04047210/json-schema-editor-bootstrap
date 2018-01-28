@@ -670,7 +670,7 @@ var SchemaObject = React.createClass({
 								{ className: 'col-sm-12 col-md-12 col-lg-12' },
 								React.createElement(
 									'div',
-									{ className: 'form-inline' },
+									{ className: 'form-inline', 'data-index': index },
 									React.createElement(
 										'div',
 										{ className: 'form-group', 'data-index': index },
@@ -734,7 +734,7 @@ var SchemaObject = React.createClass({
 										{ className: 'form-group media-right', 'data-index': index },
 										React.createElement(
 											'button',
-											{ type: 'button', id: 'btn_' + index, className: 'btn btn-default', onClick: self.deleteItem },
+											{ type: 'button', id: 'btn_' + index, className: 'btn btn-default', onClick: self.deleteItem, 'data-index': index },
 											React.createElement('span', { className: 'glyphicon glyphicon-remove' })
 										)
 									)

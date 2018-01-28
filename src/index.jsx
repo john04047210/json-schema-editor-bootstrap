@@ -428,7 +428,7 @@ var SchemaObject = React.createClass({
             <div key={index}>
               <div className="row">
                 <div className="col-sm-12 col-md-12 col-lg-12">
-                  <div className="form-inline">
+                  <div className="form-inline" data-index={index}>
                     <div className="form-group" data-index={index}>
                       <label className="sr-only" htmlFor={"input_"+index}>input</label>
                       <input name="field" className="form-control" id={"input_"+index} type="string" onChange={self.changeItem} value={name} />
@@ -447,7 +447,7 @@ var SchemaObject = React.createClass({
                       <input name={name} type="checkbox" onChange={self.changeRequired} checked={self.state.required.indexOf(name) != -1} /> Required
                     </label></div>
                     <div className="form-group media-right" data-index={index}>
-                      <button type="button" id={'btn_'+index} className="btn btn-default" onClick={self.deleteItem}>
+                      <button type="button" id={'btn_'+index} className="btn btn-default" onClick={self.deleteItem} data-index={index}>
                         <span className="glyphicon glyphicon-remove"></span>
                       </button>
                     </div>
