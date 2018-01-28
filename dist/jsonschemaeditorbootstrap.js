@@ -545,7 +545,10 @@ var SchemaObject = React.createClass({
 		return this.propsToState(this.props);
 	},
 	propsToState: function propsToState(props) {
-		var data = props.data;
+		var data = props;
+		if (props.hasOwnProperty('data')) {
+			data = props.data;
+		}
 		data.properties = data.properties || {};
 		data.required = data.required || [];
 		data.propertyNames = [];
@@ -568,6 +571,7 @@ var SchemaObject = React.createClass({
 		}
 		this.state.properties.splice(i, 1);
 		this.state.propertyNames.splice(i, 1);
+		this.state = this.propsToState(this.export());
 		this.setState(this.state);
 	},
 	changeItem: function changeItem(event) {
@@ -602,16 +606,19 @@ var SchemaObject = React.createClass({
 		this.onChange();
 	},
 	add: function add() {
-		this.state.properties.push({ name: '', type: 'string' });
+		this.state = this.propsToState(this.export());
+		this.state.properties.push({ name: '', type: 'string', title: '' });
 		this.setState(this.state);
 	},
 	export: function _export() {
 		var self = this;
 		var properties = {};
 		Object.keys(self.state.properties).forEach(function (index) {
-			//var name = self.state.properties[index].name;
 			var name = self.state.propertyNames[index];
-			if (typeof self.refs['item' + index] != 'undefined' && name.length > 0) properties[name] = self.refs['item' + index].export(name);
+			if (typeof self.refs['item' + index] != 'undefined' && name.length > 0) {
+				properties[name] = self.refs['item' + index].export(name);
+				properties[name].title = name;
+			}
 		});
 		return {
 			type: 'object',

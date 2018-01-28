@@ -309,14 +309,17 @@ var SchemaObject = React.createClass({
 		return this.propsToState(this.props)
 	},
 	propsToState: function(props) {
-		var data = props.data;
+		let data = props;
+    if(props.hasOwnProperty('data')) {
+      data = props.data;
+    }
 		data.properties = data.properties || {}
 		data.required = data.required || [];
 		data.propertyNames = [];
 		// convert from object to array
-		data.properties = Object.keys(data.properties).map(function(name) {
+		data.properties = Object.keys(data.properties).map(name => {
 			data.propertyNames.push(name);
-			var item = data.properties[name];
+			let item = data.properties[name];
 			return item;
 		})
 		return data
@@ -325,17 +328,18 @@ var SchemaObject = React.createClass({
 		this.setState(this.propsToState(newProps))
 	},
 	deleteItem: function(event) {
-		var i = event.target.parentElement.dataset.index;
-		var requiredIndex = this.state.required.indexOf(this.state.propertyNames[i])
+		let i = event.target.parentElement.dataset.index;
+		let requiredIndex = this.state.required.indexOf(this.state.propertyNames[i])
 		if (requiredIndex !== -1) {
 			this.state.required.splice(requiredIndex, 1)
 		}
 		this.state.properties.splice(i, 1);
 		this.state.propertyNames.splice(i, 1);
+    this.state = this.propsToState(this.export());
 		this.setState(this.state);
 	},
 	changeItem: function(event) {
-		var i = event.target.parentElement.dataset.index;
+    let i = event.target.parentElement.dataset.index;
 		if (event.target.name == 'type') {
 			this.state.properties[i].type = event.target.value;
 		} else if (event.target.name == 'field') {
@@ -368,17 +372,19 @@ var SchemaObject = React.createClass({
 		this.onChange();
 	},
 	add: function() {
-		this.state.properties.push({name: '', type: 'string'});
+    this.state = this.propsToState(this.export());
+		this.state.properties.push({name: '', type: 'string', title: ''});
 		this.setState(this.state);
 	},
 	export: function() {
-		var self = this;
-		var properties = {};
-		Object.keys(self.state.properties).forEach(function(index) {
-			//var name = self.state.properties[index].name;
-			var name = self.state.propertyNames[index];
-			if (typeof self.refs['item'+index] != 'undefined' && name.length > 0)
-				properties[name] = self.refs['item'+index].export(name);
+    let self = this;
+    let properties = {};
+		Object.keys(self.state.properties).forEach(index => {
+      let name = self.state.propertyNames[index];
+			if (typeof self.refs['item'+index] != 'undefined' && name.length > 0) {
+        properties[name] = self.refs['item' + index].export(name);
+        properties[name].title = name;
+      }
 		});
 		return {
 			type: 'object',
@@ -389,10 +395,10 @@ var SchemaObject = React.createClass({
 		};
 	},
   exportForm: function() {
-    var self = this;
-    var schemaForm = [];
-    Object.keys(self.state.properties).forEach(function(index) {
-      var name = self.state.propertyNames[index];
+    let self = this;
+    let schemaForm = [];
+    Object.keys(self.state.properties).forEach(index => {
+      let name = self.state.propertyNames[index];
       if (typeof self.refs['item'+index] != 'undefined' && name.length > 0)
         schemaForm.push(self.refs['item'+index].exportForm(name));
     });
@@ -407,7 +413,7 @@ var SchemaObject = React.createClass({
 	},
 	trigger: function(event) {
 		if (this.callbacks && this.callbacks[event] && this.callbacks[event].length) {
-			for (var i=0; i<this.callbacks[event].length; i++) {
+			for (let i=0; i<this.callbacks[event].length; i++) {
 				this.callbacks[event][i]();
 			}
 		}
@@ -415,7 +421,7 @@ var SchemaObject = React.createClass({
 		return this;
 	},
 	render: function() {
-		var self = this;
+    let self = this;
 
 		return (
 		<div className="panel panel-default">
